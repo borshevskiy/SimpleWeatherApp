@@ -1,0 +1,30 @@
+package com.borshevskiy.simpleweatherapp.business.model
+
+data class LocalNames(
+    val ar: String,
+    val ascii: String,
+    val bg: String,
+    val ca: String,
+    val de: String,
+    val el: String,
+    val en: String,
+    val fa: String,
+    val feature_name: String,
+    val fi: String,
+    val fr: String,
+    val gl: String,
+    val he: String,
+    val hi: String,
+    val id: String,
+    val it: String,
+    val ja: String,
+    val la: String,
+    val lt: String,
+    val pt: String,
+    val ru: String,
+    val sr: String,
+    val th: String,
+    val tr: String,
+    val vi: String,
+    val zu: String
+)
