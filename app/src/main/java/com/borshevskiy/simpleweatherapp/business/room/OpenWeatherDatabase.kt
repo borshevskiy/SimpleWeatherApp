@@ -8,6 +8,4 @@ abstract class OpenWeatherDatabase: RoomDatabase() {
 
     abstract fun getWeatherDAO(): WeatherDao
 
-
-
 }
