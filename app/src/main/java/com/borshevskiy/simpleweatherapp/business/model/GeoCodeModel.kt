@@ -7,5 +7,5 @@ data class GeoCodeModel(
     val lon: Double,
     val name: String,
     val state: String?,
-    val isFavorite: Boolean = false
+    var isFavorite: Boolean = false
 )

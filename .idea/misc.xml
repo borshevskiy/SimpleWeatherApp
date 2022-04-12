@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/bg_main_bottom_sheets.xml" value="0.37552083333333336" />
+        <entry key="..\:/Android/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/bg_menu_favorites_list.xml" value="0.37552083333333336" />
+        <entry key="..\:/Android/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/bg_menu_predictions_list.xml" value="0.37552083333333336" />
+        <entry key="..\:/Android/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/city_item_favorite_selector.xml" value="0.37552083333333336" />
+        <entry key="..\:/Android/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/slide_out_left.xml" value="0.37552083333333336" />
+        <entry key="..\:/Android/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/activity_menu.xml" value="0.33" />
+        <entry key="..\:/Android/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/item_city_lists.xml" value="0.5" />
+        <entry key="..\:/Android/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/item_main_daily.xml" value="0.27309782608695654" />
         <entry key="..\:/Users/Asus/Downloads/SimpleWeatherApp/app/src/main/res/layout/activity_initial.xml" value="0.1703125" />
         <entry key="..\:/Users/Asus/Downloads/SimpleWeatherApp/app/src/main/res/layout/activity_main.xml" value="0.190625" />
         <entry key="..\:/Users/Asus/Downloads/SimpleWeatherApp/app/src/main/res/layout/item_main_daily.xml" value="0.5" />

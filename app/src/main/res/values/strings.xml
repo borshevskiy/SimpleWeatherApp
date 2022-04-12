@@ -3,4 +3,6 @@
     <string name="min">min</string>
     <string name="max">max</string>
     <string name="avg">avg</string>
+    <string name="location">Location</string>
+    <string name="comma">, %1$s</string>
 </resources>

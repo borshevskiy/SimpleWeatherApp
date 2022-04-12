@@ -1,11 +1,13 @@
 package com.borshevskiy.simpleweatherapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.borshevskiy.simpleweatherapp.MenuActivity.Companion.COORDINATES
 import com.borshevskiy.simpleweatherapp.business.model.DailyWeatherModel
 import com.borshevskiy.simpleweatherapp.business.model.HourlyWeatherModel
 import com.borshevskiy.simpleweatherapp.business.model.WeatherDataModel
@@ -37,6 +39,22 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if (!intent.hasExtra(COORDINATES)) {
+            geoService.requestLocationUpdates(locationRequest,geoCallback, Looper.getMainLooper())
+        } else {
+            val coord = intent.extras!!.getBundle(COORDINATES)!!
+            val loc = Location("")
+            loc.latitude = coord.getString("lat")!!.toDouble()
+            loc.longitude = coord.getString("lon")!!.toDouble()
+            mLocation = loc
+            mainPresenter.refresh(mLocation.latitude.toString(), mLocation.longitude.toString())
+        }
+
+        binding.mainMenuBtn.setOnClickListener {
+            startActivity(Intent(this, MenuActivity::class.java))
+            overridePendingTransition(R.anim.slide_in_left, android.R.anim.fade_in)
+        }
+
         binding.mainHourlyList.apply {
             adapter = MainHourlyListAdapter()
             layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
@@ -48,7 +66,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             setHasFixedSize(true)
         }
         mainPresenter.enable()
-        geoService.requestLocationUpdates(locationRequest,geoCallback, Looper.getMainLooper())
     }
 
     //----------------MOXY CODE-----------------------
@@ -97,8 +114,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     private fun initLocationRequest() : LocationRequest {
         val request = LocationRequest.create()
         return request.apply {
-            interval = 10000
-            fastestInterval = 5000
+            interval = 100000
+            fastestInterval = 50000
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY}
     }
 
@@ -112,6 +129,5 @@ class MainActivity : MvpAppCompatActivity(), MainView {
                 mainPresenter.refresh(mLocation.latitude.toString(),mLocation.longitude.toString())
             }
         }
-
     }
 }
