@@ -8,11 +8,16 @@ import com.google.gson.Gson
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.*
 
 class MainRepo(api: ApiProvider) : BaseRepository<MainRepo.ServerResponse>(api) {
 
     private val gson = Gson()
     private val dbAccess = db.getWeatherDAO()
+    private val defLanguage = when(Locale.getDefault().displayLanguage) {
+        "русский" -> "ru"
+        else -> "en"
+    }
 
     data class ServerResponse(
         val cityName: String,
@@ -24,9 +29,20 @@ class MainRepo(api: ApiProvider) : BaseRepository<MainRepo.ServerResponse>(api) 
 
     fun reloadData(lat: String, long: String) {
         Observable.zip(
-            api.provideWeatherApi().getWeatherForecast(lat, long),
-            api.provideGeoCodingApi().getCityByCoords(lat, long)
-        ) { weatherData, geoCode -> ServerResponse(geoCode[0].name, weatherData) }
+            api.provideWeatherApi().getWeatherForecast(lat, long, lang = defLanguage),
+            api.provideGeoCodingApi().getCityByCoords(lat, long).map {
+                it.asSequence().map { model ->
+                    when (Locale.getDefault().displayLanguage) {
+                        "русский" -> model.local_names.ru
+                        "English" -> model.local_names.en
+                        else -> model.name
+                    }
+                }
+                    .toList()
+                    .filterNotNull()
+                    .first()
+            }
+        ) { weatherData, geoCode -> ServerResponse(geoCode, weatherData) }
             .subscribeOn(Schedulers.io()).doOnNext {
                 dbAccess.insertWeatherData(
                     WeatherDataEntity(

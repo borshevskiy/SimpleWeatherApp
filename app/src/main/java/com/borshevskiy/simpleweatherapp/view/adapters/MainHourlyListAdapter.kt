@@ -2,9 +2,7 @@ package com.borshevskiy.simpleweatherapp.view.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.borshevskiy.simpleweatherapp.business.model.DailyWeatherModel
 import com.borshevskiy.simpleweatherapp.business.model.HourlyWeatherModel
 import com.borshevskiy.simpleweatherapp.databinding.ItemMainHourlyBinding
 import com.borshevskiy.simpleweatherapp.view.*

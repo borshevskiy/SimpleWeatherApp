@@ -24,7 +24,7 @@ fun Long.toDateFormatOf(format: String): String {
     return sdf.format(Date(this * 1000))
 }
 
-fun Double.toDegree() = (this - 273.15).roundToInt().toString()
+fun Double.toDegree() = SettingsHolder.temp.getValue(this)
 
 fun Double.toPercentString(extraPart: String = "") = (this * 100).roundToInt().toString() + extraPart
 
@@ -52,7 +52,7 @@ fun TextInputEditText.createObservable(): Flowable<String> {
 }
 
 fun GeoCodeModel.mapToEntity(): GeoCodeEntity {
-    return GeoCodeEntity(name,local_names,lat, lon, country, state, isFavorite)
+    return GeoCodeEntity(name,local_names,lat, lon, country, state ?: "", isFavorite)
 }
 
 fun GeoCodeEntity.mapToModel(): GeoCodeModel {

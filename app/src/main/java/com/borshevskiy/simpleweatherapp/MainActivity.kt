@@ -50,9 +50,14 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             mainPresenter.refresh(mLocation.latitude.toString(), mLocation.longitude.toString())
         }
 
+        binding.mainSettingsBtn.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+            overridePendingTransition(R.anim.slide_in_right, android.R.anim.fade_out)
+        }
+
         binding.mainMenuBtn.setOnClickListener {
             startActivity(Intent(this, MenuActivity::class.java))
-            overridePendingTransition(R.anim.slide_in_left, android.R.anim.fade_in)
+            overridePendingTransition(R.anim.slide_in_left, android.R.anim.fade_out)
         }
 
         binding.mainHourlyList.apply {
@@ -86,9 +91,14 @@ class MainActivity : MvpAppCompatActivity(), MainView {
                     avgTemp.text = StringBuilder().append(((min+max)/2).toDegree()).append("°").toString()
                 }
                 mainWeatherImage.setImageResource(R.mipmap.cloud3x)
-                pressure.text = StringBuilder().append(current.pressure).append(" hPa").toString()
+
+                val pressureSet = SettingsHolder.pressure
+                pressure.text = getString(pressureSet.measureUnitStringRes, pressureSet.getValue(current.pressure.toDouble()))
+
                 humidity.text = StringBuilder().append(current.humidity).append("%").toString()
-                windSpeed.text = StringBuilder().append(current.humidity).append("m/s").toString()
+
+                val windSpeedSet = SettingsHolder.windSpeed
+                windSpeed.text = getString(windSpeedSet.measureUnitStringRes, pressureSet.getValue(current.pressure.toDouble()))
             }
         }
     }

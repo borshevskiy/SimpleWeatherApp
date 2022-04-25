@@ -7,6 +7,7 @@ import com.borshevskiy.simpleweatherapp.R
 import com.borshevskiy.simpleweatherapp.business.model.GeoCodeModel
 import com.borshevskiy.simpleweatherapp.databinding.ItemCityListsBinding
 import com.google.android.material.button.MaterialButton
+import java.util.*
 
 class CityListAdapter: RecyclerView.Adapter<CityListAdapter.CityListViewHolder>() {
 
@@ -52,8 +53,12 @@ class CityListAdapter: RecyclerView.Adapter<CityListAdapter.CityListViewHolder>(
                         }
                     }
                 }
-                searchCity.text = name
-                searchCountry.text = country
+                searchCity.text = when (Locale.getDefault().displayLanguage) {
+                    "русский" -> local_names.ru?: name
+                    "English" -> local_names.en?: name
+                    else -> name
+                }
+                searchCountry.text = Locale("", country).displayName
                 searchState.text = if (!state.isNullOrEmpty()) holder.itemView.context.getString(R.string.comma, state) else ""
                 favorite.isChecked = isFavorite
             }

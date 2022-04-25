@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Intent
 import androidx.room.Room
 import com.borshevskiy.simpleweatherapp.business.room.OpenWeatherDatabase
+import com.borshevskiy.simpleweatherapp.view.SettingsHolder
 
 class App : Application() {
 
@@ -20,6 +21,7 @@ class App : Application() {
             .fallbackToDestructiveMigration().build()
 
         val preferences = getSharedPreferences(APP_SETTINGS, MODE_PRIVATE)
+        SettingsHolder.onCreate(preferences)
         val flag = preferences.contains(IS_STARTED_UP)
 
         if (!flag) {
